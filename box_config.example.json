@@ -1,0 +1,10 @@
+{
+  "CLIENT_ID": "",
+  "CLIENT_SECRET": "",
+  "REDIRECT_URI": "https://YOUR_COMPANY.app.box.com/folder/0",
+  "UPLOAD_FOLDER_ID": "111222223333",
+  "SEND_SLACK": "no",
+  "SLACK_INCOMING_WEBHOOK": "https://hooks.slack.com/services/xxxx/xxxxx/xxxxx",
+  "SLACK_MESSAGE": "build is done",
+  "SHARE_PUBLIC_LINK": "yes"
+}
