@@ -49,7 +49,7 @@ check_token() {
 }
 
 get_token() {
-  echo "Open your browser and $(tput bold)make sure you logged in to box$(tput sgr0). Past the link below to your browser and hit enter:"
+  echo "Open your browser and $(tput bold)make sure you're logged in to Box$(tput sgr0). Past the link below to your browser and hit enter:"
   echo "$(tput bold)https://account.box.com/api/oauth2/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${CLIENT_REDIRECT}$(tput sgr0)"
   echo "Approve request by clicking $(tput bold)[ Grand access to Box ]$(tput sgr0), then you will be redirected to another page"
   echo "Check your browser's query string, it should be something like: ${CLIENT_REDIRECT}?$(tput bold)code=YOUR_CODE$(tput sgr0)"
@@ -142,7 +142,15 @@ fi
 set -e  # If something goes wrong
 
 : "${UPLOAD_FOLDER_ID:="$(jq -r '.UPLOAD_FOLDER_ID' $BOX_CONFIG)"}"
-echo "$(tput bold)Uploading new build to Box...$(tput sgr0)"
+
+
+if [[ $TARGET_FILE == $BOX_FILENAME ]]
+then
+  UPLOAD_MESSAGE_TIP="\"${TARGET_FILE}\""
+else
+  UPLOAD_MESSAGE_TIP="\"${TARGET_FILE}\" (rename: \"${BOX_FILENAME}\")"
+fi
+echo "$(tput bold)Uploading your file ${UPLOAD_MESSAGE_TIP} to Box...$(tput sgr0)"
 curl --request POST "https://upload.box.com/api/2.0/files/content" \
      --header "Authorization: Bearer ${ACCESS_TOKEN}" \
      --header 'Content-Type: multipart/form-data' \
