@@ -179,7 +179,7 @@ if [[ $SEND_SLACK == yes && $SLACK_INCOMING_WEBHOOK != null ]]
 then
   curl --location --request POST "${SLACK_INCOMING_WEBHOOK}" \
         --header 'Content-Type: application/json' \
-        --data-raw "{\"text\": \"$(jq -r '.SLACK_MESSAGE' $BOX_CONFIG)\"}"
+        --data "{\"text\": \"$(jq -r '.SLACK_MESSAGE' $BOX_CONFIG)\"}"
 fi
 
 echo "All done, cya"
